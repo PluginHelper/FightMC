@@ -1,10 +1,15 @@
 package cloud.acog.fightmc;
 
+import cloud.acog.fightmc.manger.ManagerCommand;
+import cloud.acog.fightmc.manger.ManagerListener;
 import javafx.util.Pair;
 import org.bukkit.command.CommandExecutor;
+import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 public class FightMC extends JavaPlugin {
 
@@ -20,8 +25,14 @@ public class FightMC extends JavaPlugin {
         ).forEach(getLogger()::info);
 
         registerCommands(
-
+               new HashMap<String, CommandExecutor>() {{
+                   put("FightManager", new ManagerCommand());
+               }}
         );
+        registerListener(
+                new ManagerListener()
+        );
+
     }
 
     @Override
@@ -32,9 +43,15 @@ public class FightMC extends JavaPlugin {
         ).forEach(getLogger()::info);
     }
 
-    public void registerCommands(Pair<String, CommandExecutor>... commands) {
-        for (Pair<String, CommandExecutor> entry : commands) {
+    public final void registerCommands(Map<String, CommandExecutor> commands) {
+        for (Map.Entry<String, CommandExecutor> entry : commands.entrySet()) {
             getCommand(entry.getKey()).setExecutor(entry.getValue());
+        }
+    }
+
+    public void registerListener(Listener... listeners) {
+        for (Listener listener : listeners) {
+            getServer().getPluginManager().registerEvents(listener, this);
         }
     }
 }

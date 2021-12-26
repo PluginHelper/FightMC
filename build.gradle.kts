@@ -3,7 +3,7 @@ import kr.entree.spigradle.kotlin.spigotmc
 
 plugins {
     java
-    id("kr.entree.spigradle") version "2.2.4"
+    id("kr.entree.spigradle") version "2.3.2"
     id("com.github.johnrengelman.shadow") version "7.0.0"
 }
 
