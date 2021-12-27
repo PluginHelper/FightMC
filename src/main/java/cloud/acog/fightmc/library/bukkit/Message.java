@@ -1,4 +1,4 @@
-package cloud.acog.fightmc.library.bukkit.message;
+package cloud.acog.fightmc.library.bukkit;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
