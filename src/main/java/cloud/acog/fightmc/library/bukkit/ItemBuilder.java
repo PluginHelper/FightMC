@@ -9,9 +9,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 
+import static cloud.acog.fightmc.library.bukkit.Message.colorize;
+
 public class ItemBuilder {
 
-    private ItemStack item;
+    private final ItemStack item;
 
     public ItemBuilder(Material material, int amount) {
         this.item = new ItemStack(material, amount);
@@ -19,7 +21,7 @@ public class ItemBuilder {
 
     public ItemBuilder setDisplay(String display) {
         ItemMeta itemMeta = this.item.getItemMeta();
-        itemMeta.setDisplayName(display);
+        itemMeta.setDisplayName(colorize(display));
         this.item.setItemMeta(itemMeta);
         return this;
     }
@@ -28,7 +30,10 @@ public class ItemBuilder {
         ArrayList<String> list = new ArrayList<String>();
         ItemMeta itemMeta = this.item.getItemMeta();
 
-        Collections.addAll(list, lore);
+        for (String lo : lore) {
+            list.add(colorize(lo));
+        }
+
         itemMeta.setLore(list);
         this.item.setItemMeta(itemMeta);
         return this;

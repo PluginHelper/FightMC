@@ -1,7 +1,7 @@
 package cloud.acog.fightmc;
 
-import cloud.acog.fightmc.manger.ManagerCommand;
-import cloud.acog.fightmc.manger.ManagerListener;
+import cloud.acog.fightmc.system.manger.ManagerCommand;
+import cloud.acog.fightmc.system.manger.ManagerListener;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.plugin.java.JavaPlugin;
 
