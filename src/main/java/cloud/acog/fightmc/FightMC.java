@@ -1,5 +1,7 @@
 package cloud.acog.fightmc;
 
+import cloud.acog.fightmc.core.manager.FightManager;
+import cloud.acog.fightmc.system.SystemManager;
 import cloud.acog.fightmc.system.manger.ManagerCommand;
 import cloud.acog.fightmc.system.manger.ManagerListener;
 import org.bukkit.command.CommandExecutor;
@@ -14,6 +16,8 @@ import static cloud.acog.fightmc.library.bukkit.Plugin.registerListener;
 public class FightMC extends JavaPlugin {
 
     public static FightMC plugin = null;
+    private final SystemManager systemManager = new SystemManager();
+    private final FightManager fightManager = new FightManager();
 
     @Override
     public void onEnable() {
@@ -30,7 +34,8 @@ public class FightMC extends JavaPlugin {
                }}
         );
         registerListener(
-                new ManagerListener()
+                new ManagerListener(systemManager, fightManager),
+                new SystemManager().onSystem()
         );
 
     }
