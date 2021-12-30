@@ -30,7 +30,7 @@ public class FightMC extends JavaPlugin {
 
         registerCommands(
                new HashMap<String, CommandExecutor>() {{
-                   put("FightManager", new ManagerCommand());
+                   put("FightManager", new ManagerCommand(fightManager));
                }}
         );
         registerListener(

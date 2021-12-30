@@ -25,4 +25,8 @@ public class FightManager {
     public boolean hasFightData(String name) {
         return this.fightDataMap.containsKey(name);
     }
+
+    public FightData getFightData(String name) {
+        return fightDataMap.get(name);
+    }
 }

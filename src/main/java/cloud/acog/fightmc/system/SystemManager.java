@@ -4,6 +4,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -39,6 +40,11 @@ public class SystemManager {
 
                 remPlayerData(player);
                 sendTo(player, "&f3대전장 생성이 종료 되었습니다.");
+            }
+
+            @EventHandler
+            public void onMove(PlayerMoveEvent event) {
+
             }
         };
     }

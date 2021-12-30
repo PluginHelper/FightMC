@@ -6,8 +6,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
+import java.util.List;
 
 import static cloud.acog.fightmc.library.bukkit.Message.colorize;
 
@@ -35,6 +34,16 @@ public class ItemBuilder {
         }
 
         itemMeta.setLore(list);
+        this.item.setItemMeta(itemMeta);
+        return this;
+    }
+
+    public ItemBuilder setLore(Integer index, String value) {
+        ItemMeta itemMeta = this.item.getItemMeta();
+        List<String> lore = itemMeta.getLore();
+
+        lore.set(index, value);
+        itemMeta.setLore(lore);
         this.item.setItemMeta(itemMeta);
         return this;
     }

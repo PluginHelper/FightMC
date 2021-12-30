@@ -20,4 +20,7 @@ public class Plugin {
         }
     }
 
+    public static void onSystemReload() {
+        FightMC plugin = FightMC.plugin;
+    }
 }

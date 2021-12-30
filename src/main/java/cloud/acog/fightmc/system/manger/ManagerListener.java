@@ -3,11 +3,13 @@ package cloud.acog.fightmc.system.manger;
 import cloud.acog.fightmc.core.data.FightData;
 import cloud.acog.fightmc.core.manager.FightManager;
 import cloud.acog.fightmc.system.SystemManager;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.Map;
@@ -27,12 +29,22 @@ public class ManagerListener implements Listener {
 
     @EventHandler
     public void onClick(InventoryClickEvent event) {
+    ItemStack item = event.getCurrentItem();
+        if(event.getView().getTitle().contains("&f&f&f&e- &f")) {
+            if(item.getItemMeta().getDisplayName() == null) {
+                return;
+            }
+
+            String name = event.getView().getTitle().substring(11);
+            FightData fightData = fightManager.getFightData(name);
+
+            System.out.println(fightData.getName());
+        }
         if(!event.getView().getTitle().contains("&fFightMC Manager")) {
             return;
         }
 
         event.setCancelled(true);
-        ItemStack item = event.getCurrentItem();
         Player player = (Player) event.getWhoClicked();
         if(item.getItemMeta().getDisplayName() == null) {
             return;
@@ -42,15 +54,33 @@ public class ManagerListener implements Listener {
             player.closeInventory();
 
             if(systemManager.hasPlayerData(player)) {
+                sendTo(player, "&c이미 대전장 생성중 입니다.");
                 return;
             }
 
             systemManager.putPlayerData(player, true);
             sendTo(player, "&f원하시는 대전장의 이름을 입력해주세요.");
+            return;
         }
 
-        for (Map.Entry<String, FightData> entry : fightManager.getFightDataMap().entrySet()) {
+        if(item.getItemMeta().getDisplayName().contains("&e- &f")) {
+            if(!fightManager.hasFightData(item.getItemMeta().getDisplayName().substring(5))) {
+                player.closeInventory();
+                sendTo(player, "&c존재하지 않는 대전장 데이터 입니다.");
+            }
 
+            String name = item.getItemMeta().getDisplayName().substring(5);
+            Inventory inventory = Bukkit.createInventory(null, 9, "&f&f&f&e- &f" + name);
+            FightData data = fightManager.getFightData(name);
+
+            if(data == null) return;
+
+            /*
+                대충 데이터로 인벤토리 만드는 구문 ~
+             */
+
+            player.closeInventory();
+            player.openInventory(inventory);
         }
     }
 
