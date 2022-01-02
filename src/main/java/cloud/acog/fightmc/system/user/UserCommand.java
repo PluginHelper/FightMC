@@ -22,5 +22,7 @@ public class UserCommand implements CommandExecutor {
         }
         Inventory inventory = Bukkit.createInventory(null, 9, "대전");
         Player player = (Player) sender;
+
+
     }
 }

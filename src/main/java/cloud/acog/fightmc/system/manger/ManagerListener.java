@@ -2,8 +2,10 @@ package cloud.acog.fightmc.system.manger;
 
 import cloud.acog.fightmc.core.data.FightData;
 import cloud.acog.fightmc.core.manager.FightManager;
+import cloud.acog.fightmc.library.bukkit.ItemBuilder;
 import cloud.acog.fightmc.system.SystemManager;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -75,9 +77,7 @@ public class ManagerListener implements Listener {
 
             if(data == null) return;
 
-            /*
-                대충 데이터로 인벤토리 만드는 구문 ~
-             */
+            inventory.setItem(1, new ItemBuilder(Material.BLACK_STAINED_GLASS, 1).build());
 
             player.closeInventory();
             player.openInventory(inventory);
