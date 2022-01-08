@@ -8,12 +8,14 @@ import org.bukkit.event.player.PlayerMoveEvent;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 import static cloud.acog.fightmc.library.bukkit.Message.sendTo;
 
 public class SystemManager {
 
     private final Map<Player, Boolean> allData = new HashMap<>();
+    private final Map<UUID, UUID> inviteData = new HashMap<>();
 
     public boolean hasPlayerData(Player player) {
         return allData.containsKey(player);

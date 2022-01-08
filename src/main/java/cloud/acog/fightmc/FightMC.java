@@ -1,6 +1,7 @@
 package cloud.acog.fightmc;
 
 import cloud.acog.fightmc.core.manager.FightManager;
+import cloud.acog.fightmc.system.SystemListener;
 import cloud.acog.fightmc.system.SystemManager;
 import cloud.acog.fightmc.system.manger.ManagerCommand;
 import cloud.acog.fightmc.system.manger.ManagerListener;
@@ -35,7 +36,7 @@ public class FightMC extends JavaPlugin {
         );
         registerListener(
                 new ManagerListener(systemManager, fightManager),
-                new SystemManager().onSystem()
+                new SystemListener(systemManager)
         );
 
     }

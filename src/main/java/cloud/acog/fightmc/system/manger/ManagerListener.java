@@ -14,8 +14,6 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.Map;
-
 import static cloud.acog.fightmc.library.bukkit.Message.sendTo;
 
 
@@ -31,18 +29,19 @@ public class ManagerListener implements Listener {
 
     @EventHandler
     public void onClick(InventoryClickEvent event) {
-    ItemStack item = event.getCurrentItem();
-        if(event.getView().getTitle().contains("&f&f&f&e- &f")) {
+        ItemStack item = event.getCurrentItem();
+        if(event.getView().getTitle().contains("&f&f&f&e- &f")) { // 대전 정보 페이지 일경우
+            event.setCancelled(true);
             if(item.getItemMeta().getDisplayName() == null) {
                 return;
             }
 
             String name = event.getView().getTitle().substring(11);
             FightData fightData = fightManager.getFightData(name);
+            String display = event.getCurrentItem().getItemMeta().getDisplayName();
 
-            System.out.println(fightData.getName());
         }
-        if(!event.getView().getTitle().contains("&fFightMC Manager")) {
+        if(!event.getView().getTitle().contains("&fFightMC Manager") || item == null) {
             return;
         }
 
@@ -77,7 +76,7 @@ public class ManagerListener implements Listener {
 
             if(data == null) return;
 
-            inventory.setItem(1, new ItemBuilder(Material.BLACK_STAINED_GLASS, 1).build());
+            inventory.setItem(1, new ItemBuilder(Material.GRASS, 1).build());
 
             player.closeInventory();
             player.openInventory(inventory);
@@ -85,13 +84,14 @@ public class ManagerListener implements Listener {
     }
 
     @EventHandler
-    public void onChat(AsyncPlayerChatEvent event) {
+    public void onChat(AsyncPlayerChatEvent event) { // 대전장 생성 채팅 이벤트
         if(!systemManager.hasPlayerData(event.getPlayer())) {
             return;
         }
 
         Player player = event.getPlayer();
         String name = event.getMessage();
+        event.setCancelled(true);
 
         if(name.length() > 16) {
             sendTo(player, "&c대전장의 이름은 16글자 이상이 될수 없습니다!");
@@ -104,7 +104,7 @@ public class ManagerListener implements Listener {
 
         fightManager.createFightData(player, name);
         systemManager.remPlayerData(player);
-        sendTo(player, "&f대전장을 새로 생성했습니다. &e: " + name);
+        sendTo(player, "&f대전장을 새로 생성했습니다. :&e " + name);
     }
 
 }
