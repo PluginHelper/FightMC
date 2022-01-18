@@ -58,4 +58,8 @@ public class ItemBuilder {
         return this.item;
     }
 
+    public ItemBuilder setSkull(Player player) {
+        return this;
+    }
+
 }

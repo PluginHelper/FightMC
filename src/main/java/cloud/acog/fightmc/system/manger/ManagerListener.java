@@ -1,9 +1,11 @@
 package cloud.acog.fightmc.system.manger;
 
 import cloud.acog.fightmc.core.data.FightData;
+import cloud.acog.fightmc.core.data.UserData;
 import cloud.acog.fightmc.core.manager.FightManager;
+import cloud.acog.fightmc.core.manager.UserManager;
 import cloud.acog.fightmc.library.bukkit.ItemBuilder;
-import cloud.acog.fightmc.system.SystemManager;
+import cloud.acog.fightmc.core.manager.SystemManager;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -14,6 +16,7 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
+import static cloud.acog.fightmc.library.bukkit.Message.colorize;
 import static cloud.acog.fightmc.library.bukkit.Message.sendTo;
 
 
@@ -21,10 +24,12 @@ public class ManagerListener implements Listener {
 
     private final SystemManager systemManager;
     private final FightManager fightManager;
+    private final UserManager userManager;
 
-    public ManagerListener(SystemManager systemManager, FightManager fightManager) {
+    public ManagerListener(SystemManager systemManager, FightManager fightManager, UserManager userManager) {
         this.systemManager = systemManager;
         this.fightManager = fightManager;
+        this.userManager = userManager;
     }
 
     @EventHandler
@@ -38,8 +43,11 @@ public class ManagerListener implements Listener {
 
             String name = event.getView().getTitle().substring(11);
             FightData fightData = fightManager.getFightData(name);
-            String display = event.getCurrentItem().getItemMeta().getDisplayName();
+            String display = item.getItemMeta().getDisplayName();
 
+            if(display.contains("")) {
+
+            }
         }
         if(!event.getView().getTitle().contains("&fFightMC Manager") || item == null) {
             return;
@@ -72,11 +80,12 @@ public class ManagerListener implements Listener {
 
             String name = item.getItemMeta().getDisplayName().substring(5);
             Inventory inventory = Bukkit.createInventory(null, 9, "&f&f&f&e- &f" + name);
-            FightData data = fightManager.getFightData(name);
+            UserData userData = userManager.getUserData(player.getUniqueId());
+            FightData fightData = fightManager.getFightData(name);
 
-            if(data == null) return;
+            if(fightData == null || userData == null) return;
 
-            inventory.setItem(1, new ItemBuilder(Material.GRASS, 1).build());
+            inventory.setItem(1, new ItemBuilder(Material.GRASS, 1).setDisplay(colorize("&e대전장 &f- " + fightData.getName())).build());
 
             player.closeInventory();
             player.openInventory(inventory);

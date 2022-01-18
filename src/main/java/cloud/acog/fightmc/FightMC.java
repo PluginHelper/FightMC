@@ -1,10 +1,12 @@
 package cloud.acog.fightmc;
 
 import cloud.acog.fightmc.core.manager.FightManager;
-import cloud.acog.fightmc.system.SystemListener;
-import cloud.acog.fightmc.system.SystemManager;
+import cloud.acog.fightmc.core.manager.UserManager;
+import cloud.acog.fightmc.system.system.SystemListener;
+import cloud.acog.fightmc.core.manager.SystemManager;
 import cloud.acog.fightmc.system.manger.ManagerCommand;
 import cloud.acog.fightmc.system.manger.ManagerListener;
+import cloud.acog.fightmc.system.user.UserCommand;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -17,8 +19,10 @@ import static cloud.acog.fightmc.library.bukkit.Plugin.registerListener;
 public class FightMC extends JavaPlugin {
 
     public static FightMC plugin = null;
+
     private final SystemManager systemManager = new SystemManager();
     private final FightManager fightManager = new FightManager();
+    private final UserManager userManager = new UserManager();
 
     @Override
     public void onEnable() {
@@ -32,11 +36,12 @@ public class FightMC extends JavaPlugin {
         registerCommands(
                new HashMap<String, CommandExecutor>() {{
                    put("FightManager", new ManagerCommand(fightManager));
+                   put("Fight", new UserCommand(fightManager, userManager, systemManager));
                }}
         );
         registerListener(
-                new ManagerListener(systemManager, fightManager),
-                new SystemListener(systemManager)
+                new ManagerListener(systemManager, fightManager, userManager),
+                new SystemListener(systemManager, userManager)
         );
 
     }
@@ -47,5 +52,15 @@ public class FightMC extends JavaPlugin {
                 "FightMC Plugin System Down",
                 "- Plugin creator is Acog"
         ).forEach(getLogger()::info);
+    }
+
+    public void load() {
+        fightManager.load();
+        userManager.load();
+    }
+
+    public void save() {
+        fightManager.save();
+        userManager.save();
     }
 }

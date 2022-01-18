@@ -36,7 +36,7 @@ public class ManagerCommand implements CommandExecutor {
             Message.sendTo(sender, "&cCommand Error | retry Pleas");
         }
         Player player = (Player) sender;
-        Inventory inventory = Bukkit.createInventory(null, 6 * 9, colorize("&fFightMC Manager"));
+        Inventory inventory = Bukkit.createInventory(null, 6 * 9, colorize("&fFightMC Manager : 1"));
         inventory.setItem(45, new ItemBuilder(Material.STONE_BUTTON, 1).setDisplay("&f이전 페이지").build());
         inventory.setItem(53, new ItemBuilder(Material.STONE_BUTTON, 1).setDisplay("&f다음 페이지").build());
 

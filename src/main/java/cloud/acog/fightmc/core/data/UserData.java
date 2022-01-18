@@ -1,17 +1,19 @@
 package cloud.acog.fightmc.core.data;
 
+import lombok.Data;
+
 import java.util.UUID;
 
+@Data
 public class UserData {
 
-    private final UUID id;
+    private final UUID uuid;
 
-    public UserData(UUID id) {
-        this.id = id;
-    }
+    private Integer win = 0;
+    private Integer fail = 0;
 
-    public UUID getId() {
-        return this.id;
+    public UserData(UUID uuid) {
+        this.uuid = uuid;
     }
 
 }

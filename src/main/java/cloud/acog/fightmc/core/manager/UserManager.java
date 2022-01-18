@@ -10,19 +10,28 @@ public class UserManager {
 
     private final Map<UUID, UserData> userDataMap = new HashMap<>();
 
-    public void createUserData(UUID uuid) {
-        userDataMap.put(uuid, new UserData(uuid));
+    /**
+     * UserDataMap
+     */
+    public Map<UUID, UserData> getUserDataMap() { return this.userDataMap; }
+
+    public boolean hasUserData(UUID uuid) { return this.userDataMap.containsKey(uuid); }
+
+    public void putUserData(UUID uuid, UserData data) { this.userDataMap.put(uuid, data); }
+
+    public UserData getUserData(UUID uuid) { return this.userDataMap.get(uuid); }
+
+    /**
+     * sava & load
+     */
+    public void load() {
+
     }
 
-    public Map<UUID, UserData> getUserDataMap() {
-        return this.userDataMap;
-    }
-
-    public boolean hasUserData(UUID uuid) {
-        return this.userDataMap.containsKey(uuid);
-    }
-
-    public UserData getUserData(UUID uuid) {
-        return userDataMap.get(uuid);
+    public void save() {
+        for (Map.Entry<UUID, UserData> entry : getUserDataMap().entrySet()) {
+            //
+        }
+        // 마지막에 작업
     }
 }

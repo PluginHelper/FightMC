@@ -1,9 +1,13 @@
-package cloud.acog.fightmc.system;
+package cloud.acog.fightmc.system.system;
 
+import cloud.acog.fightmc.core.data.UserData;
+import cloud.acog.fightmc.core.manager.SystemManager;
+import cloud.acog.fightmc.core.manager.UserManager;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
+import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 
 import static cloud.acog.fightmc.library.bukkit.Message.sendTo;
@@ -11,9 +15,11 @@ import static cloud.acog.fightmc.library.bukkit.Message.sendTo;
 public class SystemListener implements Listener {
 
     private final SystemManager systemManager;
+    private final UserManager userManager;
 
-    public SystemListener(SystemManager systemManager) {
+    public SystemListener(SystemManager systemManager, UserManager userManager) {
         this.systemManager = systemManager;
+        this.userManager = userManager;
     }
 
     @EventHandler
@@ -32,5 +38,15 @@ public class SystemListener implements Listener {
     @EventHandler
     public void onMove(PlayerMoveEvent event) {
 
+    }
+
+    @EventHandler
+    public void onLogin(PlayerLoginEvent event) {
+        if (userManager.hasUserData(event.getPlayer().getUniqueId())) {
+            return;
+        }
+
+        UserData userData = new UserData(event.getPlayer().getUniqueId());
+        userManager.putUserData(event.getPlayer().getUniqueId(), userData);
     }
 }
