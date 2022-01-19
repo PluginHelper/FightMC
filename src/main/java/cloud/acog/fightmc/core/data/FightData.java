@@ -21,6 +21,9 @@ public class FightData {
     private Location spawnLocation = null;
     private Location seeLocation = null;
 
+    private UUID firstPlayer = null;
+    private UUID secondPlayer = null;
+
     public FightData(UUID uuid, String name) {
         this.creator = uuid;
         this.name = name;

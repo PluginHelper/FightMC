@@ -6,18 +6,17 @@ import cloud.acog.fightmc.core.manager.FightManager;
 import cloud.acog.fightmc.core.manager.UserManager;
 import cloud.acog.fightmc.library.bukkit.ItemBuilder;
 import cloud.acog.fightmc.core.manager.SystemManager;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 import static cloud.acog.fightmc.library.bukkit.Message.colorize;
 import static cloud.acog.fightmc.library.bukkit.Message.sendTo;
+import static cloud.acog.fightmc.system.Gui.openFightDataInventory;
 
 
 public class ManagerListener implements Listener {
@@ -79,16 +78,13 @@ public class ManagerListener implements Listener {
             }
 
             String name = item.getItemMeta().getDisplayName().substring(5);
-            Inventory inventory = Bukkit.createInventory(null, 9, "&f&f&f&e- &f" + name);
             UserData userData = userManager.getUserData(player.getUniqueId());
             FightData fightData = fightManager.getFightData(name);
 
             if(fightData == null || userData == null) return;
 
-            inventory.setItem(1, new ItemBuilder(Material.GRASS, 1).setDisplay(colorize("&e대전장 &f- " + fightData.getName())).build());
-
             player.closeInventory();
-            player.openInventory(inventory);
+            player.openInventory(openFightDataInventory());
         }
     }
 
