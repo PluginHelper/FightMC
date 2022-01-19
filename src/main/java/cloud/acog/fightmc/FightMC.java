@@ -65,4 +65,8 @@ public class FightMC extends JavaPlugin {
         fightManager.save();
         userManager.save();
     }
+
+    public void master() {
+
+    }
 }
