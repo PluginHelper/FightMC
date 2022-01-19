@@ -8,12 +8,15 @@ import org.bukkit.entity.Player;
 import java.util.UUID;
 
 @Data
-public class FightData {
+public class FightData { // 완성
 
     private final UUID creator;
     private final String name;
 
-    private final boolean state = false;
+    private Boolean state = true;
+    private Boolean manageState = true;
+
+    private Integer fightTime = 300;
 
     private Location firstLocation = null;
     private Location secondLocation = null;

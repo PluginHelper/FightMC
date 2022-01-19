@@ -17,6 +17,7 @@ import org.bukkit.inventory.ItemStack;
 import java.util.Map;
 
 import static cloud.acog.fightmc.library.bukkit.Message.colorize;
+import static cloud.acog.fightmc.library.bukkit.Message.sendTo;
 
 public class ManagerCommand implements CommandExecutor {
 
@@ -38,6 +39,10 @@ public class ManagerCommand implements CommandExecutor {
         }
         Player player = (Player) sender;
 
-        player.openInventory(Gui.getFightManagerGui(fightManager));
+        if(args.length < 0) {
+            player.openInventory(Gui.getFightManagerGui(fightManager));
+        } else {
+            sendTo(player, colorize("&f/FightManager"));
+        }
     }
 }

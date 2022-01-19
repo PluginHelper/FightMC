@@ -8,7 +8,7 @@ import java.util.Map;
 
 public class FightManager {
 
-    private Boolean fightPluginState = true;
+    private boolean fightPluginState = true;
     private final Map<String, FightData> fightDataMap = new HashMap<>();
 
     public void createFightData(Player player, String name) {
@@ -22,11 +22,13 @@ public class FightManager {
     /**
      * FightDataMap
      */
-    public Map<String, FightData> getFightDataMap() {return this.fightDataMap; }
+    public Map<String, FightData> getFightDataMap() { return this.fightDataMap; }
 
-    public boolean hasFightData(String name) {return this.fightDataMap.containsKey(name); }
+    public boolean hasFightData(String name) { return this.fightDataMap.containsKey(name); }
 
-    public FightData getFightData(String name) {return fightDataMap.get(name); }
+    public FightData getFightData(String name) { return fightDataMap.get(name); }
+
+    public void putFightData(String name, FightData fightData) { this.fightDataMap.put(name, fightData); }
 
     /**
      * FightPluginState

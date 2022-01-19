@@ -1,12 +1,9 @@
 package cloud.acog.fightmc.system.manger;
 
 import cloud.acog.fightmc.core.data.FightData;
-import cloud.acog.fightmc.core.data.UserData;
 import cloud.acog.fightmc.core.manager.FightManager;
 import cloud.acog.fightmc.core.manager.UserManager;
-import cloud.acog.fightmc.library.bukkit.ItemBuilder;
 import cloud.acog.fightmc.core.manager.SystemManager;
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -14,9 +11,8 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.inventory.ItemStack;
 
-import static cloud.acog.fightmc.library.bukkit.Message.colorize;
-import static cloud.acog.fightmc.library.bukkit.Message.sendTo;
-import static cloud.acog.fightmc.system.Gui.openFightDataInventory;
+import static cloud.acog.fightmc.library.bukkit.Message.*;
+import static cloud.acog.fightmc.system.Gui.openFightDataGui;
 
 
 public class ManagerListener implements Listener {
@@ -31,34 +27,56 @@ public class ManagerListener implements Listener {
         this.userManager = userManager;
     }
 
+    /**
+     * MineCraft FightManager Command Events
+     */
     @EventHandler
     public void onClick(InventoryClickEvent event) {
         ItemStack item = event.getCurrentItem();
-        if(event.getView().getTitle().contains("&f&f&f&e- &f")) { // 대전 정보 페이지 일경우
+        if(event.getView().getTitle().contains("&f&e-&f ")) { // 여기도 만들어야 함
             event.setCancelled(true);
-            if(item.getItemMeta().getDisplayName() == null) {
+            if(item == null || item.getItemMeta().getDisplayName() == null) {
                 return;
             }
-
-            String name = event.getView().getTitle().substring(11);
+            String name = event.getView().getTitle().split(" ")[1];
             FightData fightData = fightManager.getFightData(name);
-            String display = item.getItemMeta().getDisplayName();
 
-            if(display.contains("")) {
-
+            if(fightData == null || name == null ) {
+                return;
             }
+            switch (event.getRawSlot()) {
+                case 1:
+                    System.out.println("test");
+                    break;
+                case 3:
+                    System.out.println("1est");
+                    break;
+                case 4:
+                    System.out.println("test1");
+                    break;
+                case 5:
+                    System.out.println("t1est");
+                    break;
+                case 6:
+                    System.out.println("tes1t");
+                    break;
+                case 7:
+                    System.out.println("te1st");
+                    break;
+            }
+
         }
-        if(!event.getView().getTitle().contains("&fFightMC Manager") || item == null) {
+        if(!event.getView().getTitle().contains("&fFightMC Manager")) {
             return;
         }
 
         event.setCancelled(true);
         Player player = (Player) event.getWhoClicked();
-        if(item.getItemMeta().getDisplayName() == null) {
+        if(item == null || item.getItemMeta().getDisplayName() == null) {
             return;
         }
 
-        if(event.getRawSlot() == 49 && event.getClick().isRightClick()) { // 대전생성 클릭시
+        if(event.getRawSlot() == 49 && event.getClick().isRightClick()) {
             player.closeInventory();
 
             if(systemManager.hasPlayerData(player)) {
@@ -71,6 +89,19 @@ public class ManagerListener implements Listener {
             return;
         }
 
+        if(event.getRawSlot() == 50 && event.getClick().isLeftClick()) {
+            player.closeInventory();
+
+            fightManager.setFightPluginState(!fightManager.getFightPluginState());
+
+            if(fightManager.getFightPluginState()) {
+                broadCast(colorize("&f대전 - 플러그인이 &a활성화 &f되었습니다."));
+            } else {
+                broadCast(colorize("&f대전 - 플러그인이 &c비활성화 &f되었습니다."));
+            }
+            return;
+        }
+
         if(item.getItemMeta().getDisplayName().contains("&e- &f")) {
             if(!fightManager.hasFightData(item.getItemMeta().getDisplayName().substring(5))) {
                 player.closeInventory();
@@ -78,18 +109,17 @@ public class ManagerListener implements Listener {
             }
 
             String name = item.getItemMeta().getDisplayName().substring(5);
-            UserData userData = userManager.getUserData(player.getUniqueId());
             FightData fightData = fightManager.getFightData(name);
 
-            if(fightData == null || userData == null) return;
+            if(fightData == null) return;
 
             player.closeInventory();
-            player.openInventory(openFightDataInventory());
+            player.openInventory(openFightDataGui(fightData));
         }
     }
 
     @EventHandler
-    public void onChat(AsyncPlayerChatEvent event) { // 대전장 생성 채팅 이벤트
+    public void onChat(AsyncPlayerChatEvent event) {
         if(!systemManager.hasPlayerData(event.getPlayer())) {
             return;
         }
@@ -111,5 +141,9 @@ public class ManagerListener implements Listener {
         systemManager.remPlayerData(player);
         sendTo(player, "&f대전장을 새로 생성했습니다. :&e " + name);
     }
+
+    /**
+     * MineCraft FightManager Events
+     */
 
 }

@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.UUID;
 
 @Data
-public class UserData {
+public class UserData { //완성?
 
     private final UUID uuid;
 

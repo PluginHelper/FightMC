@@ -15,8 +15,55 @@ import static cloud.acog.fightmc.library.bukkit.Message.colorize;
 
 public class Gui {
 
-    public static Inventory openFightDataInventory() {
-        Inventory inventory = Bukkit.createInventory(null, 3);
+    public static Inventory openFightDataGui(FightData fightData) {
+        Inventory inventory = Bukkit.createInventory(null, 9, colorize("&f&e-&f " + fightData.getName()));
+
+        inventory.setItem(0,
+                new ItemBuilder(Material.BOOK, 1).setDisplay("&e정보").setLore(
+                        "&e생성자&f : " + Bukkit.getPlayer(fightData.getCreator()).getName(),
+                        "&e대전시간&f : " + fightData.getFightTime() + "초",
+                        "&e대전장 관리상태&f : " + fightData.getManageState(),
+                        "&e대전장 상태&f : " + fightData.getState(),
+                        "&f",
+                        "&e플레이어1&f : " + fightData.getFirstPlayer().toString(),
+                        "&e플레이어2&f : " + fightData.getSecondPlayer().toString(),
+                        "&f",
+                        String.format("&e대전좌표1&f : %d, %d %d", fightData.getFirstLocation().getX(), fightData.getFirstLocation().getY(), fightData.getFirstLocation().getZ()),
+                        String.format("&e대전좌표2&f : %d, %d %d", fightData.getSecondLocation().getX(), fightData.getSecondLocation().getY(), fightData.getSecondLocation().getZ()),
+                        String.format("&e관전좌표&f : %d, %d %d", fightData.getSeeLocation().getX(), fightData.getSeeLocation().getY(), fightData.getSeeLocation().getZ()),
+                        String.format("&e스폰좌표&f : &d, &d, &d", fightData.getSpawnLocation().getX(), fightData.getSpawnLocation().getY(), fightData.getSpawnLocation().getZ())
+                ).build()
+        );
+        inventory.setItem(3,
+                new ItemBuilder(Material.PAPER, 1).setDisplay("&f대전관리").setLore(
+                        "&f아이템을 좌클릭시 대전장의 상태를 변경합니다  &e-&f " + fightData.getManageState().toString(),
+                        "&f아이템을 우클릭시 대전시간을 수정합니다. &e-&f " + fightData.getFightTime() + "초"
+                ).build()
+        );
+        inventory.setItem(4,
+                new ItemBuilder(Material.PAPER, 1).setDisplay("&f대전좌표 : 1").setLore(
+                        "&f아이템을 클릭시 대전장소의 좌표를 현재 좌표로 설정합니다.",
+                        String.format("현재좌표 : %d, %d, %d", fightData.getFirstLocation().getX(), fightData.getFirstLocation().getY(), fightData.getFirstLocation().getZ())
+                ).build()
+        );
+        inventory.setItem(5,
+                new ItemBuilder(Material.PAPER, 1).setDisplay("&f대전좌표 : 2").setLore(
+                        "&f아이템을 클릭시 대전장소의 좌표를 현재 좌표로 설정합니다.",
+                        String.format("현재좌표 : %d, %d, %d", fightData.getSecondLocation().getX(), fightData.getSecondLocation().getY(), fightData.getSecondLocation().getZ())
+                ).build()
+        );
+        inventory.setItem(6,
+                new ItemBuilder(Material.PAPER, 1).setDisplay("&f관전좌표").setLore(
+                        "&f아이템을 클릭시 대전시간을 수정합니다.",
+                        String.format("현재좌표 : %d, %d, %d", fightData.getSeeLocation().getX(), fightData.getSeeLocation().getY(), fightData.getSeeLocation().getZ())
+                ).build()
+        );
+        inventory.setItem(7,
+                new ItemBuilder(Material.PAPER, 1).setDisplay("&f스폰좌표").setLore(
+                        "&f아이템을 클릭시 대전시간을 수정합니다.",
+                        String.format("현재좌표 : %d, %d, %d", fightData.getSpawnLocation().getX(), fightData.getSpawnLocation().getY(), fightData.getSpawnLocation().getZ())
+                ).build()
+        );
         return inventory;
     }
 
@@ -40,7 +87,7 @@ public class Gui {
         return inventory;
     }
 
-    public static Inventory getUsetManagerGui(Player player) {
+    public static Inventory getUserManagerGui(Player player) {
         Inventory inventory = Bukkit.createInventory(null, 6 * 9, colorize("&fFightMC Manager : 1"));
         return inventory;
     }
