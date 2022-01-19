@@ -26,6 +26,7 @@ public class FightMC extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        save();
         plugin = this;
         load();
         Arrays.asList(
