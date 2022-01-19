@@ -27,6 +27,7 @@ public class FightMC extends JavaPlugin {
     @Override
     public void onEnable() {
         plugin = this;
+        load();
         Arrays.asList(
                 "MineCraft Fight Plugin",
                 "- Version : 1.14.4",
@@ -48,6 +49,7 @@ public class FightMC extends JavaPlugin {
 
     @Override
     public void onDisable() {
+        save();
         Arrays.asList(
                 "FightMC Plugin System Down",
                 "- Plugin creator is Acog"
