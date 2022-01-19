@@ -1,6 +1,8 @@
-#FightMC
 
-> This plugin is a new version of the Minecraft Fighting plugin.
-> These plugins are all copyrights of Acog.
+# FightMC &middot; [![License](https://img.shields.io/github/license/AcogKR/FightMC.svg)](https://github.com/AcogKr/FightMC/blob/master/LICENSE)
 
+예전 대전 플러그인의 불편함을 최소화 하고 다양한 기능을 새롭게 추가된 플러그인 입니다.
 
+##Command
+> -  **/FightManager** ( 대전 시스템의 메니저 GUI 를 오픈합니다. ) 
+> -  **/Fight** ( 대전 시스템의 GUI 를 오픈합니다. )
