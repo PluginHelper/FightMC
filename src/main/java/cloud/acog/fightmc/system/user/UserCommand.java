@@ -4,6 +4,7 @@ import cloud.acog.fightmc.core.manager.FightManager;
 import cloud.acog.fightmc.core.manager.SystemManager;
 import cloud.acog.fightmc.core.manager.UserManager;
 import cloud.acog.fightmc.library.bukkit.Message;
+import cloud.acog.fightmc.system.Gui;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -37,10 +38,12 @@ public class UserCommand implements CommandExecutor {
             sendTo(sender, "&cCommand Error | retry Pleas");
         }
 
-        Inventory inventory = Bukkit.createInventory(null, 9, "대전");
         Player player = (Player) sender;
         if(!fightManager.getFightPluginState()) {
             sendTo(player, colorize("&c현재 대전 시스템이 비활성화 상태입니다."));
         }
+
+        player.openInventory(Gui.getUsetManagerGui(player));
+
     }
 }

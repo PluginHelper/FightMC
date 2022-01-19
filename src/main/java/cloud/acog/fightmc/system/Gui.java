@@ -39,4 +39,9 @@ public class Gui {
         }
         return inventory;
     }
+
+    public static Inventory getUsetManagerGui(Player player) {
+        Inventory inventory = Bukkit.createInventory(null, 6 * 9, colorize("&fFightMC Manager : 1"));
+        return inventory;
+    }
 }
