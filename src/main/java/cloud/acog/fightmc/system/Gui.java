@@ -98,13 +98,13 @@ public class Gui {
     public static Inventory getUserManagerGui(Player player, FightManager fightManager) {
         Inventory inventory = Bukkit.createInventory(null, 6 * 9, colorize("&fFightMC Manager : 1"));
 
-        for (Map.Entry<String, FightData> entry : fightManager.getFightDataMap().entrySet()) {
-            inventory.addItem(new ItemBuilder(Material.BOOK, 1).setDisplay("- " + entry.getValue().getName()).setLore(
-                    "~~~"
-            ).build());
-        }
-
-        inventory.setItem(40, new ItemBuilder(Material.ACACIA_BOAT, 1).build());
+        inventory.setItem(1, new ItemBuilder(Material.PLAYER_HEAD, 1).setDisplay("전적").setLore(
+                "",
+                "das",
+                "dsad",
+                "dsad",
+                "Dasd"
+        ).build());
         return inventory;
     }
 }
