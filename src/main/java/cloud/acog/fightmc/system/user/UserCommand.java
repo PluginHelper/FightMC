@@ -41,6 +41,5 @@ public class UserCommand implements CommandExecutor {
         }
 
         player.openInventory(Gui.getUserManagerGui(player));
-
     }
 }

@@ -25,13 +25,13 @@ public class SystemListener implements Listener {
     @EventHandler
     public void onCommand(PlayerCommandPreprocessEvent event) {
         Player player = event.getPlayer();
-        if(!systemManager.hasPlayerData(player)) return;
-        if(!event.getMessage().equals("/생성종료")) {
-            sendTo(player, "&c현재 커맨드 사용이 불가능합니다, \"/생성종료\" 입력시 종료 됩니다.");
+        if(!systemManager.hasPlayerData(player.getUniqueId())) return;
+        if(!event.getMessage().equals("/종료")) {
+            sendTo(player, "&c현재 대전 시스템으로 인해 커맨드 사용이 불가능합니다, \"/종료\" 입력시 종료 됩니다.");
             return;
         }
 
-        systemManager.remPlayerData(player);
+        systemManager.remPlayerData(player.getUniqueId());
         sendTo(player, "&f3대전장 생성이 종료 되었습니다.");
     }
 

@@ -31,12 +31,14 @@ public class Gui {
                         String.format("&e대전좌표1&f : %d, %d %d", fightData.getFirstLocation().getX(), fightData.getFirstLocation().getY(), fightData.getFirstLocation().getZ()),
                         String.format("&e대전좌표2&f : %d, %d %d", fightData.getSecondLocation().getX(), fightData.getSecondLocation().getY(), fightData.getSecondLocation().getZ()),
                         String.format("&e관전좌표&f : %d, %d %d", fightData.getSeeLocation().getX(), fightData.getSeeLocation().getY(), fightData.getSeeLocation().getZ()),
-                        String.format("&e스폰좌표&f : &d, &d, &d", fightData.getSpawnLocation().getX(), fightData.getSpawnLocation().getY(), fightData.getSpawnLocation().getZ())
+                        String.format("&e스폰좌표&f : &d, &d, &d", fightData.getSpawnLocation().getX(), fightData.getSpawnLocation().getY(), fightData.getSpawnLocation().getZ()),
+                        "&f",
+                        "&f아이템을 쉬프트 우클릭시 대전장 정보를 &c삭제&f합니다."
                 ).build()
         );
         inventory.setItem(3,
                 new ItemBuilder(Material.PAPER, 1).setDisplay("&f대전관리").setLore(
-                        "&f아이템을 좌클릭시 대전장의 상태를 변경합니다  &e-&f " + fightData.getManageState().toString(),
+                        "&f아이템을 클릭시 대전장의 상태를 변경합니다  &e-&f " + fightData.getManageState().toString(),
                         "&f아이템을 우클릭시 대전시간을 수정합니다. &e-&f " + fightData.getFightTime() + "초"
                 ).build()
         );
@@ -70,12 +72,18 @@ public class Gui {
 
     public static Inventory getFightManagerGui(FightManager fightManager) {
         Inventory inventory = Bukkit.createInventory(null, 6 * 9, colorize("&fFightMC Manager : 1"));
-        inventory.setItem(45, new ItemBuilder(Material.STONE_BUTTON, 1).setDisplay("&f이전 페이지").build());
-        inventory.setItem(53, new ItemBuilder(Material.STONE_BUTTON, 1).setDisplay("&f다음 페이지").build());
 
-        inventory.setItem(50, new ItemBuilder(Material.STONE_BUTTON, 1).setDisplay("&c아이템을 클릭시 해당 정보를 삭제합니다.").build());
+        inventory.setItem(50, new ItemBuilder(Material.STONE_BUTTON, 1).setDisplay("&c제작자 : Acog").build());
         inventory.setItem(49, new ItemBuilder(Material.STONE_BUTTON, 1).setDisplay("&e대전 매니저").setLore("&f아이템을 우클릭시 대전정보를 생성합니다.").build());
-        inventory.setItem(48, new ItemBuilder(Material.STONE_BUTTON, 1).setDisplay("&3아이템을 우클릭시 해당 정보를 수정합니다.").build());
+        if(fightManager.getFightPluginState()) {
+            inventory.setItem(48, new ItemBuilder(Material.STONE_BUTTON, 1).setDisplay("&f대전 &c비활성화").setLore(
+                    "아이템을 클릭시 플러그인을 &c비활성화&f 합니다."
+            ).build());
+        } else {
+            inventory.setItem(48, new ItemBuilder(Material.STONE_BUTTON, 1).setDisplay("&f대전 &a활성화").setLore(
+                    "아이템을 클릭시 플러그인을 &a활성화&f 합니다."
+            ).build());
+        }
 
         for (Map.Entry<String, FightData> entry : fightManager.getFightDataMap().entrySet()) {
             ItemStack item = new ItemBuilder(Material.PAPER, 1).setDisplay("&e- &f" + entry.getKey()).setLore(
