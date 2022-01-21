@@ -40,6 +40,6 @@ public class UserCommand implements CommandExecutor {
             sendTo(player, colorize("&c현재 대전 시스템이 비활성화 상태입니다."));
         }
 
-        player.openInventory(Gui.getUserManagerGui(player));
+        player.openInventory(Gui.getUserManagerGui(player, userManager));
     }
 }

@@ -10,7 +10,6 @@ public class UserListener implements Listener {
 
     @EventHandler
     public void onClick(InventoryClickEvent event) {
-        String title = event.getView().getTitle();
     }
 
     @EventHandler

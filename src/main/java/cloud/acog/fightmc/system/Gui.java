@@ -1,7 +1,9 @@
 package cloud.acog.fightmc.system;
 
 import cloud.acog.fightmc.core.data.FightData;
+import cloud.acog.fightmc.core.data.UserData;
 import cloud.acog.fightmc.core.manager.FightManager;
+import cloud.acog.fightmc.core.manager.UserManager;
 import cloud.acog.fightmc.library.bukkit.ItemBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -95,15 +97,12 @@ public class Gui {
         return inventory;
     }
 
-    public static Inventory getUserManagerGui(Player player, FightManager fightManager) {
+    public static Inventory getUserManagerGui(Player player, UserManager userManager) {
         Inventory inventory = Bukkit.createInventory(null, 6 * 9, colorize("&fFightMC Manager : 1"));
+        UserData userData = userManager.getUserData(player.getUniqueId());
 
         inventory.setItem(1, new ItemBuilder(Material.PLAYER_HEAD, 1).setDisplay("전적").setLore(
-                "",
-                "das",
-                "dsad",
-                "dsad",
-                "Dasd"
+                String.format("&e대결전적 : &a%d승, %c%d패", userData.getWin(), userData.getFail())
         ).build());
         return inventory;
     }
