@@ -5,9 +5,7 @@ import org.bukkit.configuration.file.YamlConfiguration
 import org.bukkit.entity.Player
 import java.util.*
 
-class FightConfig(
-    val fightAreaMap: MutableMap<String, AreaData>
-) {
+class FightConfig(val fightAreaMap: MutableMap<String, AreaData>) {
 
     companion object {
         fun loadFightConfig(yaml: YamlConfiguration) : FightConfig {

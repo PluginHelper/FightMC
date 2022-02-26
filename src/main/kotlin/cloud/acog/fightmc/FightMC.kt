@@ -1,6 +1,7 @@
 package cloud.acog.fightmc
 
 import cloud.acog.fightmc.core.manager.FightConfig
+import cloud.acog.fightmc.core.manager.PlayerConfig
 import org.bukkit.configuration.file.YamlConfiguration
 import org.bukkit.plugin.java.JavaPlugin
 import java.io.File
@@ -8,6 +9,7 @@ import java.io.File
 class FightMC : JavaPlugin() {
 
     var fightConfig: FightConfig = FightConfig(mutableMapOf())
+    var playerConfig: PlayerConfig = PlayerConfig(mutableMapOf())
 
     override fun onEnable() {
         listOf(
@@ -17,6 +19,7 @@ class FightMC : JavaPlugin() {
         ).forEach(logger::info)
 
         fightConfig = FightConfig.loadFightConfig(YamlConfiguration.loadConfiguration(getFightConfigFile()))
+        playerConfig = PlayerConfig.loadPlayerConfig(YamlConfiguration.loadConfiguration(getPlayerConfigFile()))
     }
 
     override fun onDisable() {
@@ -26,7 +29,11 @@ class FightMC : JavaPlugin() {
         ).forEach(logger::info)
 
         FightConfig.saveFightConfig(fightConfig).save(getFightConfigFile())
+        PlayerConfig.savePlayerConfig(playerConfig).save(getPlayerConfigFile())
     }
 
     private fun getFightConfigFile() = File("${dataFolder}/FightConfig", "fightConfig.yml")
+
+    private fun getPlayerConfigFile() = File("${dataFolder}/PlayerConfig", "playerConfig.yml")
+
 }
