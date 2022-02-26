@@ -34,4 +34,8 @@ spigot {
 
     description = "Minecraft Plugin Support API"
     load = kr.entree.spigradle.data.Load.STARTUP
+
+    commands {
+
+    }
 }
