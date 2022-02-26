@@ -11,6 +11,9 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/modules/bukkit-view" />
+            <option value="$PROJECT_DIR$/modules/fight" />
+            <option value="$PROJECT_DIR$/modules/library" />
           </set>
         </option>
       </GradleProjectSettings>
